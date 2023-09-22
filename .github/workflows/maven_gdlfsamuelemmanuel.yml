@@ -43,6 +43,15 @@ jobs:
         with:
           name: java-app
 
+      - name: Verificar Cobertura
+        run: |
+          COVERAGE=$(cat target/site/jacoco/index.html | grep "Overall Coverage" | grep -o -E '[0-9]+\.[0-9]+')
+          if (( $(echo "$COVERAGE < 80.0" | bc -l) )); then
+            echo "La cobertura es menor que 80%. No se puede desplegar."
+            exit 1
+          fi
+
+
       - name: Deploy to Azure Web App
         id: deploy-to-webapp
         uses: azure/webapps-deploy@v2
