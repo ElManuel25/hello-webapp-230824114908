@@ -24,14 +24,19 @@ jobs:
       - name: Build with Maven
         run: mvn clean install
 
+      - name: Run tests
+        run: mvn test
+
+      - name: Check code coverage
+        run: mvn jacoco:check
+
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v2
         with:
           name: java-app
           path: '${{ github.workspace }}/target/*.jar'
 
-      - name: Check code coverage
-        run: mvn jacoco:check
+
 
   deploy:
     runs-on: ubuntu-latest
