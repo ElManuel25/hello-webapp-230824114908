@@ -45,11 +45,14 @@ jobs:
 
       - name: Verificar Cobertura
         run: |
-          COVERAGE=$(cat target/site/jacoco/index.html | grep "Overall Coverage" | grep -o -E '[0-9]+\.[0-9]+')
+          COVERAGE=$(cat C:\Users\emmve\ProyectosUdeM\hello-webapp-230824114908\target\site\jacoco\index.html | grep "Overall Coverage" | grep -o -E '[0-9]+\.[0-9]+')
+          echo "Cobertura: $COVERAGE"
           if (( $(echo "$COVERAGE < 50.0" | bc -l) )); then
             echo "La cobertura es menor que 50%. No se puede desplegar."
             exit 1
           fi
+
+
 
 
       - name: Deploy to Azure Web App
