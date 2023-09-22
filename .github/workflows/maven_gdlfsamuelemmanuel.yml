@@ -45,12 +45,13 @@ jobs:
 
       - name: Verificar Cobertura
         run: |
-          COVERAGE=$(cat C:\Users\emmve\ProyectosUdeM\hello-webapp-230824114908\target\site\jacoco\index.html | grep "Overall Coverage" | grep -o -E '[0-9]+\.[0-9]+')
-          echo "Cobertura: $COVERAGE"
-          if (( $(echo "$COVERAGE < 50.0" | bc -l) )); then
-            echo "La cobertura es menor que 50%. No se puede desplegar."
+          $COVERAGE = Get-Content 'C:\Users\emmve\ProyectosUdeM\hello-webapp-230824114908\target\site\jacoco\index.html' | Select-String -Pattern "Overall Coverage" | Select-String -Pattern '\d+\.\d+' -AllMatches | ForEach-Object { $_.Matches.Value }
+          Write-Output "Cobertura: $COVERAGE"
+          if ($COVERAGE -lt 50.0) {
+            Write-Output "La cobertura es menor que 50%. No se puede desplegar."
             exit 1
-          fi
+          }
+
 
 
 
