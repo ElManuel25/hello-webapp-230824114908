@@ -28,12 +28,12 @@ jobs:
         run: mvn test
 
       - name: Publish test results
-        uses: actions/upload-sarif@v1
+        uses: actions/upload-artifact@v1
         with:
           sarif_file: ./target/surefire-reports/TEST-*.xml
 
       - name: Publish publish code coverage
-        uses: actions/upload-sarif@v1
+        uses: actions/upload-artifact@v1
         with:
           sarif_file: ./target/site/jacoco/jacoco.xml
 
