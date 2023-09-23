@@ -28,22 +28,22 @@ jobs:
         run: mvn test
 
       - name: Publish test results
-        uses: actions/upload-artifact@v1
+        uses: actions/upload-artifact@v2
         with:
-          sarif_file: ./target/surefire-reports/TEST-*.xml
+          name: test-results
+          path: ./target/surefire-reports
 
-      - name: Publish publish code coverage
-        uses: actions/upload-artifact@v1
+      - name: Publish code coverage
+        uses: actions/upload-artifact@v2
         with:
-          sarif_file: ./target/site/jacoco/jacoco.xml
+          name: code-coverage
+          path: ./target/site/jacoco
 
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v2
         with:
           name: java-app
           path: '${{ github.workspace }}/target/*.jar'
-
-
 
   deploy:
     runs-on: ubuntu-latest
