@@ -24,11 +24,18 @@ jobs:
       - name: Build with Maven
         run: mvn clean install
 
-      - name: Run tests
+      - name: Maven Test
         run: mvn test
 
-      - name: Check code coverage
-        run: mvn jacoco:check
+      - name: Publish test results
+        uses: actions/upload-sarif@v1
+        with:
+          sarif_file: ./target/surefire-reports/TEST-*.xml
+
+      - name: Publish publish code coverage
+        uses: actions/upload-sarif@v1
+        with:
+          sarif_file: ./target/site/jacoco/jacoco.xml
 
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v2
