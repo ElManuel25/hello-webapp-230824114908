@@ -21,11 +21,11 @@ jobs:
         with:
           java-version: '17'
 
-      #- name: Build with Maven
-      #  run: mvn clean install
+      - name: Build with Maven
+        run: mvn clean install
 
-      #- name: Maven Test
-      #  run: mvn test
+      - name: Maven Test
+        run: mvn test
 
       #- name: Publish test results
       #  uses: actions/upload-artifact@v2
@@ -45,8 +45,8 @@ jobs:
       #    path: ~/.m2
       #    key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
       #    restore-keys: ${{ runner.os }}-m2
-      - name: Build with Maven
-        run: mvn clean install --file pom.xml
+      #- name: Build with Maven
+      #  run: mvn clean install --file pom.xml
         
       - name: Publish test coverage results
         uses: PavanMudigonda/jacoco-reporter@v4.8
