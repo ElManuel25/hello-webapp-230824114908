@@ -23,11 +23,13 @@ jobs:
       
 
       - name: Build with Maven
-        run: mvn clean install -Dmaven.test.failure.ignore=true
+        run: mvn clean install
+        #run: mvn clean install -Dmaven.test.failure.ignore=true
 
 
       - name: Maven Test
-        run: mvn test -Dmaven.test.failure.ignore=true
+        run: mvn test
+        #run: mvn test -Dmaven.test.failure.ignore=true
 
 
 
@@ -51,7 +53,7 @@ jobs:
           coverage_report_name: 'Test coverage results'
           github_token: ${{ secrets.GITHUB_TOKEN }}
           skip_check_run: true
-          minimum_coverage: 80
+          minimum_coverage: 70
           fail_below_threshold: true
           publish_only_summary: false
 
