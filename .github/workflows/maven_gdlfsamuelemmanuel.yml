@@ -25,7 +25,7 @@ jobs:
         run: mvn clean install
 
       - name: Maven Test
-        run: mvn test -Dmaven.test.failure.ignore=true
+        run: mvn test 
 
 
 
