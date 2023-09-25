@@ -460,7 +460,7 @@
                     <version>5.5.2</version>
                 </dependency>
             </dependencies>
- 
+ </plugin>
 
         <plugin>
    <groupId>org.springframework.boot</groupId>
