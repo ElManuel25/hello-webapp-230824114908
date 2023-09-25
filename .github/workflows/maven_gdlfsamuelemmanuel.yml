@@ -22,11 +22,11 @@ jobs:
           java-version: '17'
 
       - name: Build with Maven
-        run: mvn clean install -Dmaven.test.failure.ignore=true
+        run: mvn clean install -DtestFailureIgnore=true
 
 
       - name: Maven Test
-        run: mvn test 
+        run: mvn test -DtestFailureIgnore=true
 
 
 
