@@ -92,8 +92,12 @@ jobs:
           context: .  # Usa el contexto actual
           push: true  # Ahora necesitamos subir la imagen
 
+          
+      - name: Debug DATE value
+        run: echo "DATE is ${{ env.DATE }}"    
+
           # Reemplaza 'nombre-imagen' y 'etiqueta' con tus propios valores
-          tags: 'gdlcemmanuelsamuel.azurecr.io/petclinic-app:${{ env.DATE }}'
+          #tags: 'gdlcemmanuelsamuel.azurecr.io/petclinic-app:${{ env.DATE }}'
 
 
 
