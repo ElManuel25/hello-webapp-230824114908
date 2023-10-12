@@ -23,6 +23,6 @@ jobs:
           context: .  # Usa el contexto actual
           push: true  # Subir la imagen
           tags: 'gdlcemmanuelsamuel.azurecr.io/petclinic-app:latest'
-          username: elmanuel25
+          username: gdlcemmanuelsamuel
           password: ${{ secrets.ACR_PASSWORD }}
 
