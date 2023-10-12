@@ -94,7 +94,7 @@ jobs:
           push: true  # Ahora necesitamos subir la imagen
 
           # Reemplaza 'nombre-imagen' y 'etiqueta' con tus propios valores
-          tags: 'nombre-registry.azurecr.io/nombre-imagen:${{ env.DATE }}-${{ env.VERSION }}'
+          tags: 'gdlcemmanuelsamuel.azurecr.io/petclinic-app:${{ env.DATE }}-${{ env.VERSION }}'
 
 
 
