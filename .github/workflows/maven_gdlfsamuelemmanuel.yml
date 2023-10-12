@@ -93,7 +93,7 @@ jobs:
           push: true  # Ahora necesitamos subir la imagen  
 
           # Reemplaza 'nombre-imagen' y 'etiqueta' con tus propios valores
-          tags: 'gdlcemmanuelsamuel.azurecr.io/petclinic-app:${{ env.DATE }}'
+          tags: 'gdlcemmanuelsamuel.azurecr.io/petclinic-app:v78'
 
           # Reemplaza 'nombre-registry' con el nombre de tu ACR
           username: ${{ secrets.ACR_USERNAME }}
@@ -106,5 +106,5 @@ jobs:
           app-name: 'gdlfsamuelemmanuel'
           slot-name: 'Production'
           publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_ABA675EA1BA240C1964444D40E09CA42 }}
-          images: 'gdlcemmanuelsamuel.azurecr.io/petclinic-app:${{ env.DATE }}'  # La imagen que acabas de construir
+          images: 'gdlcemmanuelsamuel.azurecr.io/petclinic-app:v78'  # La imagen que acabas de construir
 
