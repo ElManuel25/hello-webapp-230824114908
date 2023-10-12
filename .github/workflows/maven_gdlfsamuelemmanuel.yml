@@ -18,7 +18,6 @@ jobs:
 
       - name: Set up Git
         run: |
-          echo "##vso[task.setvariable variable=VERSION]$(git rev-list --count HEAD)"
           echo "##vso[task.setvariable variable=DATE]$(Get-Date -Format yyyyMMdd-HHmmss)"
         
 
@@ -94,7 +93,8 @@ jobs:
           push: true  # Ahora necesitamos subir la imagen
 
           # Reemplaza 'nombre-imagen' y 'etiqueta' con tus propios valores
-          tags: 'gdlcemmanuelsamuel.azurecr.io/petclinic-app:${{ env.DATE }}-${{ env.VERSION }}'
+          tags: 'gdlcemmanuelsamuel.azurecr.io/petclinic-app:${{ env.DATE }}'
+
 
 
 
