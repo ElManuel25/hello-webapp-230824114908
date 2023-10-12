@@ -1,25 +1,37 @@
-name: Build and push Docker image - gdlfsamuelemmanuel
+name: Docker Image CI
 
 on:
   push:
-    branches:
-      - maven
-  workflow_dispatch:
+    branches: [ maven ]
+  pull_request:
+    branches: [ maven ]
 
 jobs:
-  build:
-    runs-on: ubuntu-latest
-
-    steps:
-      - uses: actions/checkout@v2
-
-      - name: Build Docker image
-        uses: docker/build-push-action@v2
-        with:
-          context: .  # Usa el contexto actual
-          push: true  # Ahora necesitamos subir la imagen
-          tags: 'gdlcemmanuelsamuel.azurecr.io/petclinic-app:v1'
-          username: ${{ secrets.ACR_USERNAME }}
-          password: ${{ secrets.ACR_PASSWORD }}
-
+    compile:
+        name: Build and run the container
+        runs-on: ubuntu-latest
+        steps:
+          - name: Set up QEMU
+            uses: docker/setup-qemu-action@v1
+          - name: Set up Docker Buildx
+            uses: docker/setup-buildx-action@v1
+          - name: Login to DockerHub
+            uses: docker/login-action@v1
+            with:
+              username: ${{ secrets.DOCKERHUB_USERNAME }}
+              password: ${{ secrets.DOCKERHUB_TOKEN }}
+          - name: Build and push
+            uses: docker/build-push-action@v2
+            with:
+              push: true
+              tags: gdlcemmanuelsamuel.azurecr.io/petclinic-app:latest
+          - name: Check out the repo
+            uses: actions/checkout@v2
+          - name: Run the build process with Docker
+            uses: addnab/docker-run-action@v3
+            with:
+                image: gdlcemmanuelsamuel.azurecr.io/petclinic-app:latest
+                options: -v ${{ github.workspace }}:/data
+                run: |
+                    echo "Hello World"
 
