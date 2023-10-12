@@ -16,11 +16,6 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
-      - name: Set up Git
-        run: |
-          echo "##vso[task.setvariable variable=DATE]$(Get-Date -Format yyyyMMdd-HHmmss)"
-        
-
       - name: Set up Java version
         uses: actions/setup-java@v1
         with:
@@ -68,36 +63,18 @@ jobs:
           name: java-app
           path: '${{ github.workspace }}/target/*.jar'
           
-      - name: Build Docker image
-        uses: docker/build-push-action@v2
-        with:
-          context: .  # Usa el contexto actual
-          push: false  # No necesitamos subir la imagen aquí, lo haremos después
-
   deploy:
     runs-on: ubuntu-latest
     needs: build
     environment:
       name: 'Production'
       url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}
+    
     steps:
       - name: Download artifact from build job
         uses: actions/download-artifact@v2
         with:
           name: java-app
-
-      - name: Build and push Docker image
-        uses: docker/build-push-action@v2
-        with:
-          context: .  # Usa el contexto actual
-          push: true  # Ahora necesitamos subir la imagen  
-
-          # Reemplaza 'nombre-imagen' y 'etiqueta' con tus propios valores
-          tags: 'gdlcemmanuelsamuel.azurecr.io/petclinic-app:v78'
-
-          # Reemplaza 'nombre-registry' con el nombre de tu ACR
-          username: ${{ secrets.ACR_USERNAME }}
-          password: ${{ secrets.ACR_PASSWORD }}
 
       - name: Deploy to Azure Web App
         id: deploy-to-webapp
@@ -106,5 +83,4 @@ jobs:
           app-name: 'gdlfsamuelemmanuel'
           slot-name: 'Production'
           publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_ABA675EA1BA240C1964444D40E09CA42 }}
-          images: 'gdlcemmanuelsamuel.azurecr.io/petclinic-app:v78'  # La imagen que acabas de construir
-
+          package: '*.jar'
