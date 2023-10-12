@@ -4,25 +4,22 @@ on:
   push:
     branches:
       - maven
+  workflow_dispatch:
 
 jobs:
-  build-docker:
+  build:
     runs-on: ubuntu-latest
 
     steps:
       - uses: actions/checkout@v2
 
-      #- name: Set up Git
-      #  run: |
-      #    echo "##vso[task.setvariable variable=VERSION]$(git rev-list --count HEAD)"
-      #    echo "##vso[task.setvariable variable=DATE]$(Get-Date -Format yyyyMMdd-HHmmss)"
-          
       - name: Build Docker image
         uses: docker/build-push-action@v2
         with:
           context: .  # Usa el contexto actual
-          push: true  # Subir la imagen
-          tags: 'gdlcemmanuelsamuel.azurecr.io/petclinic-app:latest'
-          username: gdlcemmanuelsamuel
+          push: true  # Ahora necesitamos subir la imagen
+          tags: 'gdlcemmanuelsamuel.azurecr.io/petclinic-app:v1'
+          username: ${{ secrets.ACR_USERNAME }}
           password: ${{ secrets.ACR_PASSWORD }}
+
 
