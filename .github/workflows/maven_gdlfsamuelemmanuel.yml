@@ -94,8 +94,8 @@ jobs:
 
 
           # Reemplaza 'nombre-registry' con el nombre de tu ACR
-          username: ${{ elmanuel25 }}
-          password: ${{ felicidad0 }}
+          username: ${{ secrets.ACR_USERNAME }}
+          password: ${{ secrets.ACR_PASSWORD }}
 
       - name: Deploy to Azure Web App
         id: deploy-to-webapp
