@@ -24,5 +24,5 @@ jobs:
           push: true  # Subir la imagen
           tags: 'gdlcemmanuelsamuel.azurecr.io/petclinic-app:latest'
           username: elmanuel25
-          password: ${{ secrets.GDLCES_DF_PS }}
+          password: ${{ secrets.ACR_PASSWORD }}
 
