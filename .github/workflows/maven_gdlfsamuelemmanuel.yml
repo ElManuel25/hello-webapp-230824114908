@@ -12,10 +12,12 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-
     steps:
-      - uses: actions/checkout@v2
 
+      - name: Set up Git
+        run: |
+          echo "##vso[task.setvariable variable=DATE]$(Get-Date -Format yyyyMMdd-HHmmss)"
+          
       - name: Set up Java version
         uses: actions/setup-java@v1
         with:
@@ -25,7 +27,6 @@ jobs:
       - name: Build with Maven
         #run: mvn clean install
         run: mvn clean install -Dmaven.test.failure.ignore=true
-
 
       - name: Maven Test
         #run: mvn test
@@ -62,19 +63,39 @@ jobs:
         with:
           name: java-app
           path: '${{ github.workspace }}/target/*.jar'
-          
+
+      # Añade este paso para construir la imagen Docker
+      - name: Build Docker image
+        uses: docker/build-push-action@v2
+        with:
+          context: .  # Usa el contexto actual
+          push: false  # No necesitamos subir la imagen aquí, lo haremos después
+
   deploy:
     runs-on: ubuntu-latest
     needs: build
     environment:
       name: 'Production'
       url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}
-    
     steps:
       - name: Download artifact from build job
         uses: actions/download-artifact@v2
         with:
           name: java-app
+
+      - name: Build and push Docker image
+        uses: docker/build-push-action@v2
+        with:
+          context: .  # Usa el contexto actual
+          push: true  # Ahora necesitamos subir la imagen
+
+          # Reemplaza 'nombre-imagen' y 'etiqueta' con tus propios valores
+          tags: 'nombre-registry.azurecr.io/nombre-imagen:${{ env.DATE }}'
+
+
+          # Reemplaza 'nombre-registry' con el nombre de tu ACR
+          username: ${{ elmanuel25 }}
+          password: ${{ felicidad0 }}
 
       - name: Deploy to Azure Web App
         id: deploy-to-webapp
@@ -83,4 +104,5 @@ jobs:
           app-name: 'gdlfsamuelemmanuel'
           slot-name: 'Production'
           publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_ABA675EA1BA240C1964444D40E09CA42 }}
-          package: '*.jar'
+          images: 'gdlcemmanuelsamuel.azurecr.io/petclinic-app:v1'  # La imagen que acabas de construir
+
