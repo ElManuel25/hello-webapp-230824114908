@@ -12,12 +12,16 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+
     steps:
+      - uses: actions/checkout@v2
 
       - name: Set up Git
         run: |
+          echo "##vso[task.setvariable variable=VERSION]$(git rev-list --count HEAD)"
           echo "##vso[task.setvariable variable=DATE]$(Get-Date -Format yyyyMMdd-HHmmss)"
-          
+        
+
       - name: Set up Java version
         uses: actions/setup-java@v1
         with:
@@ -27,6 +31,7 @@ jobs:
       - name: Build with Maven
         #run: mvn clean install
         run: mvn clean install -Dmaven.test.failure.ignore=true
+
 
       - name: Maven Test
         #run: mvn test
@@ -63,8 +68,7 @@ jobs:
         with:
           name: java-app
           path: '${{ github.workspace }}/target/*.jar'
-
-      # Añade este paso para construir la imagen Docker
+          
       - name: Build Docker image
         uses: docker/build-push-action@v2
         with:
@@ -90,7 +94,8 @@ jobs:
           push: true  # Ahora necesitamos subir la imagen
 
           # Reemplaza 'nombre-imagen' y 'etiqueta' con tus propios valores
-          tags: 'nombre-registry.azurecr.io/nombre-imagen:${{ env.DATE }}'
+          tags: 'nombre-registry.azurecr.io/nombre-imagen:${{ env.DATE }}-${{ env.VERSION }}'
+
 
 
           # Reemplaza 'nombre-registry' con el nombre de tu ACR
