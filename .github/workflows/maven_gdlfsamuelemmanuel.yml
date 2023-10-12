@@ -90,21 +90,14 @@ jobs:
         uses: docker/build-push-action@v2
         with:
           context: .  # Usa el contexto actual
-          push: true  # Ahora necesitamos subir la imagen
-
-          
-      - name: Debug DATE value
-        run: echo "DATE is ${{ env.DATE }}"    
+          push: true  # Ahora necesitamos subir la imagen  
 
           # Reemplaza 'nombre-imagen' y 'etiqueta' con tus propios valores
-          #tags: 'gdlcemmanuelsamuel.azurecr.io/petclinic-app:${{ env.DATE }}'
-
-
-
+          tags: 'gdlcemmanuelsamuel.azurecr.io/petclinic-app:${{ env.DATE }}'
 
           # Reemplaza 'nombre-registry' con el nombre de tu ACR
-          #username: ${{ secrets.ACR_USERNAME }}
-          #password: ${{ secrets.ACR_PASSWORD }}
+          username: ${{ secrets.ACR_USERNAME }}
+          password: ${{ secrets.ACR_PASSWORD }}
 
       - name: Deploy to Azure Web App
         id: deploy-to-webapp
@@ -113,5 +106,5 @@ jobs:
           app-name: 'gdlfsamuelemmanuel'
           slot-name: 'Production'
           publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_ABA675EA1BA240C1964444D40E09CA42 }}
-          images: 'gdlcemmanuelsamuel.azurecr.io/petclinic-app:v1'  # La imagen que acabas de construir
+          images: 'gdlcemmanuelsamuel.azurecr.io/petclinic-app:${{ env.DATE }}'  # La imagen que acabas de construir
 
