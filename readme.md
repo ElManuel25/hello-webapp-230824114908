@@ -33,11 +33,9 @@ Or you can run it from Maven directly using the Spring Boot Maven plugin. If you
 
 ## Building a Container
 
-There is no `Dockerfile` in this project. You can build a container image (if you have a docker daemon) using the Spring Boot build plugin:
+A container is built automatically after commiting to maven branch of this repository, to download the image go to ElManuel25 profile, packages section and on the hello-webapp-230824114908 package you can find the images
 
-```
-./mvnw spring-boot:build-image
-```
+
 
 ## In case you find a bug/suggested improvement for Spring Petclinic
 Our issue tracker is available [here](https://github.com/spring-projects/spring-petclinic/issues)
