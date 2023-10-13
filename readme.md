@@ -33,7 +33,12 @@ Or you can run it from Maven directly using the Spring Boot Maven plugin. If you
 
 ## Building a Container
 
-A container is built automatically after commiting to maven branch of this repository, to download the image go to ElManuel25 profile, packages section and on the hello-webapp-230824114908 package you can find the images
+A container is built automatically after commiting to maven branch of this repository, to download the image go to ElManuel25 profile, packages section and on the hello-webapp-230824114908 package you can find the images.
+
+To pull an image from GHCR you can use the following command and change the version image that you want to pull
+```
+docker pull ghcr.io/elmanuel25/hello-webapp-230824114908:{{version}}
+```
 
 
 
