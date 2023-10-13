@@ -39,8 +39,12 @@ To pull an image from GHCR you can use the following command and change the vers
 ```
 docker pull ghcr.io/elmanuel25/hello-webapp-230824114908:{{version}}
 ```
+Also there are available images using azure container registry using the following command
 
 
+```
+docker pull gdlcemmanuelsamuel.azurecr.io/hello-webapp-230824114908:{{version}}   example of version: 1697217287
+```
 
 ## In case you find a bug/suggested improvement for Spring Petclinic
 Our issue tracker is available [here](https://github.com/spring-projects/spring-petclinic/issues)
