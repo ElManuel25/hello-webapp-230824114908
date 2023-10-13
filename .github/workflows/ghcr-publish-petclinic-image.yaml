@@ -1,14 +1,17 @@
 name: Docker Image GHCR CI
 
 on:
-    push
+  push
 jobs:
-    build_and_publish:
-        runs-on: ubuntu-latest
-        steps:
-            - uses: actions/checkout@v3
-            - name: Build and push the Image
-              run: |
-                docker login --username elmanuel25 --password ${{ secrets.GH_PAT }} ghcr.io
-                docker build . --tag ghcr.io/elmanuel25/hello-webapp-230824114908:latest
-                docker push ghcr.io/elmanuel25/hello-webapp-230824114908:latest
+  build_and_publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Generate version number
+        id: version
+        run: echo "::set-output name=version::${{ github.run_number }}"
+      - name: Build and push the Image
+        run: |
+          docker login --username elmanuel25 --password ${{ secrets.GH_PAT }} ghcr.io
+          docker build . --tag ghcr.io/elmanuel25/hello-webapp-230824114908:${{ steps.version.outputs.version }}
+          docker push ghcr.io/elmanuel25/hello-webapp-230824114908:${{ steps.version.outputs.version }}
